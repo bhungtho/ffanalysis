@@ -7,16 +7,49 @@ var ff_json = require('./media/result.json');
 
 var data = [];
 
-const tech_companies = [
-  { label: "Apple", value: 1},
-  { label: "Facebook", value: 2 },
-  { label: "Netflix", value: 3 },
-  { label: "Tesla", value: 4 },
-  { label: "Amazon", value: 5 },
-  { label: "Alphabet", value: 6 },
-];
+class Button extends React.Component {
+  handleClick() {
+
+  }
+
+  render() {
+    return (
+      <button type = "button" class = "btn btn-light">
+        Select
+      </button>
+    );
+  }
+}
 
 class App extends React.Component {
+  render() {
+    return(
+      <div className = "container">
+        <div className = "row">
+          <div className = "col-md-4"></div>
+          <div className = "col-md-4">
+            <p>FFAnalysis</p>
+          </div>
+          <div className = "col-md-4"></div>
+        </div>
+        <div className = "row">
+          <div className = "col-md-4"></div>
+          <div className = "col-md-4">
+            <Dropdown />
+          </div>
+          <div className = "col-md-4">
+            <Button />
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+class Dropdown extends React.Component {
+  state = {
+    selected: null,
+  }
 
   load_json() {
     for(let i = 0; i < ff_json.length; i++) {
@@ -29,15 +62,8 @@ class App extends React.Component {
   render() {
     this.load_json();
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-4"></div>
-          <div className="col-md-4">
-            <Select options={ data } />
-          </div>
-          <div className="col-md-4"></div>
-        </div>
-      </div>
+      <Select options={ data } />
+
     );
   }
 }
