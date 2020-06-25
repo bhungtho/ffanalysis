@@ -14,7 +14,7 @@ class Button extends React.Component {
 
   render() {
     return (
-      <button type = "button" class = "btn btn-light">
+      <button type = "button" className = "btn btn-light">
         Select
       </button>
     );
@@ -51,18 +51,29 @@ class Dropdown extends React.Component {
     selected: null,
   }
 
+  handleChange = selected => {
+    this.setState({selected});
+    //console.log('Option selected:', selected);
+  };
+
   load_json() {
     for(let i = 0; i < ff_json.length; i++) {
       var temp = ff_json[i];
-      var temp_two = {label: temp.Player, value: temp.field1};
+      var temp_two = {label: temp.Player, value: temp.Player};
       data[i] = temp_two;
     }
   }
 
   render() {
+    const {selected} = this.state;
+
     this.load_json();
     return (
-      <Select options={ data } />
+      <Select 
+        value = {selected}
+        onChange = {this.handleChange}
+        options = {data} 
+      />
 
     );
   }
