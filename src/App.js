@@ -7,21 +7,55 @@ var ff_json = require('./media/result.json');
 
 var data = [];
 
-class Button extends React.Component {
-  handleClick() {
 
+function Button(props) {
+  return (
+    <button type = "button" className = "btn btn-light" onClick = {props.onClick}>
+      Select
+    </button>
+  );
+}
+
+
+/*
+class Button extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(this.props);
   }
 
   render() {
     return (
-      <button type = "button" className = "btn btn-light">
+      <button type = "button" className = "btn btn-light" onClick = {this.props.handleClick}>
         Select
       </button>
     );
   }
 }
+*/
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selected: null,
+    };
+
+    this.handler = this.handler.bind(this);
+  }
+
+  handler(selected) {
+    this.setState({
+      selected: selected,
+    });
+    //console.log(this.state.selected);
+  }
+
+  handleClick() {
+    console.log(this.state.selected);
+  }
+
   render() {
     return(
       <div className = "container">
@@ -35,10 +69,14 @@ class App extends React.Component {
         <div className = "row">
           <div className = "col-md-4"></div>
           <div className = "col-md-4">
-            <Dropdown />
+            <Dropdown 
+              action = {this.handler}
+            />
           </div>
           <div className = "col-md-4">
-            <Button />
+            <Button 
+              onClick = {() => this.handleClick()}
+            />
           </div>
         </div>
       </div>
@@ -54,6 +92,7 @@ class Dropdown extends React.Component {
   handleChange = selected => {
     this.setState({selected});
     //console.log('Option selected:', selected);
+    this.props.action(selected);
   };
 
   load_json() {
