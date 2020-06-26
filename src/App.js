@@ -8,7 +8,6 @@ var ff_json = require('./media/result.json');
 
 var data = [];
 
-
 function Button(props) {
   return (
     <button type = "button" className = "btn btn-light" onClick = {props.onClick}>
@@ -16,24 +15,6 @@ function Button(props) {
     </button>
   );
 }
-
-
-/*
-class Button extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log(this.props);
-  }
-
-  render() {
-    return (
-      <button type = "button" className = "btn btn-light" onClick = {this.props.handleClick}>
-        Select
-      </button>
-    );
-  }
-}
-*/
 
 class App extends React.Component {
   constructor(props) {
@@ -43,7 +24,6 @@ class App extends React.Component {
       selected: null,
       player: {
         age: null,
-        att: null,
         cmp: null,
         points: null,
         fumbles: null,
@@ -57,8 +37,9 @@ class App extends React.Component {
         name: null,
         pos: null,
         rec: null,
-        r_td: null,
-        r_yd: null,
+        ru_td: null,
+        ru_yd: null,
+        ru_att: null,
         tgt: null,
         team: null,
         y_r: null,
@@ -73,27 +54,33 @@ class App extends React.Component {
     this.setState({
       selected: selected,
     });
-    //console.log(this.state.selected);
   }
 
   handleClick() {
-    //console.log(this.state.selected);
-    //console.log('http://localhost:5000/api/v1.0/data/' + this.state.selected.value)
     axios
       .get('http://localhost:5000/api/v1.0/data/' + this.state.selected.value).then((response) => {
+        // clerical info
         const n_name = response.data.Player;
         const n_pos = response.data.Pos;
         const n_age = response.data.Age;
         const n_team = response.data.Tm;
 
-        //console.log(n_name)
+        // game stats
+        const n_games = response.data.G;
+        const n_started = response.data.GS;
+
+        // rushing info
+        
 
         this.setState({
           player: {
             name: n_name,
             pos: n_pos,
             age: n_age,
-            team: n_team
+            team: n_team,
+
+            games: n_games,
+            started: n_started,
           }
         });
       })
@@ -104,30 +91,31 @@ class App extends React.Component {
     return(
       <div className = "container">
         <div className = "row">
-          <div className = "col-md-4"></div>
-          <div className = "col-md-4">
+          <div className = "col"></div>
+          <div className = "col">
             <p>FFAnalysis</p>
           </div>
-          <div className = "col-md-4"></div>
+          <div className = "col"></div>
         </div>
-        <div className = "row">
-          <div className = "col-md-4"></div>
-          <div className = "col-md-4">
+        <div className = "row mb-2">
+          <div className = "col"></div>
+          <div className = "col">
             <Dropdown 
               action = {this.handler}
             />
           </div>
-          <div className = "col-md-4">
+          <div className = "col">
             <Button 
               onClick = {() => this.handleClick()}
             />
           </div>
         </div>
-        <div className = "container">
+        <div className = "row mb-2">
           <Player 
             state = {this.state}
           />
         </div>
+
       </div>
     );
   }
@@ -167,19 +155,19 @@ class Dropdown extends React.Component {
   }
 }
 
-function Player (props) {
+function Player(props) {
   return (
-    <div className = 'row'>
-      <div className = "col-md-3">
+    <div className = 'container'>
+      <div className = 'row'>
         <p>Name: {props.state.player.name}</p>
       </div>
-      <div className = "col-md-3">
+      <div className = 'row'>
         <p>Position: {props.state.player.pos}</p>
       </div>
-      <div className = "col-md-3">
+      <div className = 'row'>
         <p>Age: {props.state.player.age}</p>
-      </div>
-      <div className = "col-md-3">
+        </div>
+      <div className = 'row'>
         <p>Team: {props.state.player.team}</p>
       </div>
     </div>
