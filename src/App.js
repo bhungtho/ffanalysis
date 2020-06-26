@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import ff_data from 'media/result.json';
 
@@ -40,6 +41,29 @@ class App extends React.Component {
 
     this.state = {
       selected: null,
+      player: {
+        age: null,
+        att: null,
+        cmp: null,
+        points: null,
+        fumbles: null,
+        fum_lost: null,
+        games: null,
+        started: null,
+        interceptions: null,
+        p_att: null,
+        p_td: null,
+        p_yd: null,
+        name: null,
+        pos: null,
+        rec: null,
+        r_td: null,
+        r_yd: null,
+        tgt: null,
+        team: null,
+        y_r: null,
+        t_yd: null,
+      },
     };
 
     this.handler = this.handler.bind(this);
@@ -53,7 +77,27 @@ class App extends React.Component {
   }
 
   handleClick() {
-    console.log(this.state.selected);
+    //console.log(this.state.selected);
+    //console.log('http://localhost:5000/api/v1.0/data/' + this.state.selected.value)
+    axios
+      .get('http://localhost:5000/api/v1.0/data/' + this.state.selected.value).then((response) => {
+        const n_name = response.data.Player;
+        const n_pos = response.data.Pos;
+        const n_age = response.data.Age;
+        const n_team = response.data.Tm;
+
+        //console.log(n_name)
+
+        this.setState({
+          player: {
+            name: n_name,
+            pos: n_pos,
+            age: n_age,
+            team: n_team
+          }
+        });
+      })
+      .catch(error => console.log(error));
   }
 
   render() {
@@ -79,6 +123,11 @@ class App extends React.Component {
             />
           </div>
         </div>
+        <div className = "container">
+          <Player 
+            state = {this.state}
+          />
+        </div>
       </div>
     );
   }
@@ -98,7 +147,7 @@ class Dropdown extends React.Component {
   load_json() {
     for(let i = 0; i < ff_json.length; i++) {
       var temp = ff_json[i];
-      var temp_two = {label: temp.Player, value: temp.Player};
+      var temp_two = {label: temp.Player, value: temp.field1};
       data[i] = temp_two;
     }
   }
@@ -116,6 +165,25 @@ class Dropdown extends React.Component {
 
     );
   }
+}
+
+function Player (props) {
+  return (
+    <div className = 'row'>
+      <div className = "col-md-3">
+        <p>Name: {props.state.player.name}</p>
+      </div>
+      <div className = "col-md-3">
+        <p>Position: {props.state.player.pos}</p>
+      </div>
+      <div className = "col-md-3">
+        <p>Age: {props.state.player.age}</p>
+      </div>
+      <div className = "col-md-3">
+        <p>Team: {props.state.player.team}</p>
+      </div>
+    </div>
+  );
 }
 
 export default App;
