@@ -13,13 +13,13 @@ def home():
 
 @app.route('/api/v1.0/data', methods=['GET'])
 def get_data():
-    with open('result.json') as f:
+    with open('2019.json') as f:
         data = json.load(f)
     return jsonify(data)
 
 @app.route('/api/v1.0/data/<int:id>', methods=['GET'])
 def get_player(id):
-    with open('result.json') as f:
+    with open('2019.json') as f:
         data = json.load(f)
     if id > 619:
         abort(404)
