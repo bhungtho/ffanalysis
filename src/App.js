@@ -5,12 +5,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from './Button.js';
 import Dropdown from './Dropdown.js'
 import Player from './Player.js';
+import Images from './Images.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      image_one: null,
+      image_two: null,
+      image_three: null,
+      button_pressed: false,
       selected: null,
       player: {
         name: null,
@@ -73,6 +78,7 @@ class App extends React.Component {
         const n_re_td = response.data.ReceivingTD;
 
         this.setState({
+          //button_pressed: true,
           player: {
             name: n_name,
             pos: n_pos,
@@ -102,7 +108,7 @@ class App extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <div className = "container">
         <div className = "row">
           <div className = "col"></div>
@@ -129,7 +135,11 @@ class App extends React.Component {
             state = {this.state}
           />
         </div>
-
+        <div className = "row mb-2">
+          <Images 
+            state = {this.state}
+          />
+        </div>
       </div>
     );
   }

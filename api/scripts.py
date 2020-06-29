@@ -1,4 +1,8 @@
+import matplotlib
+matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mticker
 import pandas as pd
 import json
 
@@ -31,13 +35,30 @@ def player_point_progression(name):
     y = [fp_2015, fp_2016, fp_2017, fp_2018, fp_2019]
 
     plt.plot(x, y)
+    plt.xticks(range(2015, 2020))
+    plt.title('Fantasy Points Progression for ' + name)
+    plt.xlabel('Year')
+    plt.ylabel('Fantasy Points')
 
-    plt.savefig('playerptprog.png')
+    plt.savefig('./../src/media/playerptprog.png')
 
-    print(fp_2019)
-    print(fp_2018)
-    print(fp_2017)
-    print(fp_2016)
-    print(fp_2015)
+    plt.close()
 
-player_point_progression('Christian McCaffrey')
+def compare_player_position(name):
+    players_2019 = pd.read_json('2019.json')
+    position = fp_2019 = (players_2019.loc[players_2019['Player'] == name])['Pos'].values[0]
+
+    for i,j in players_2019.iterrows():
+        if(j['Pos'] == position):
+            att_tgt = j['Tgt'] + j['PassingAtt'] + j['RushingAtt']
+            #x.append(att_tgt)
+            #y.append(j['FantasyPoints'])
+            plt.scatter(att_tgt, j['FantasyPoints'], color = 'blue')
+            if(j['Player'] == name):
+                plt.scatter(att_tgt, j['FantasyPoints'], color = 'yellow')
+            else:
+                plt.scatter(att_tgt, j['FantasyPoints'], color = 'blue')
+
+    plt.savefig('./../src/media/compplayer.png')
+
+    plt.close()

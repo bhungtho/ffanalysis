@@ -2,6 +2,7 @@ import flask
 import json
 from flask import request, jsonify, abort
 from flask_cors import CORS
+from scripts import *
 
 app = flask.Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -23,6 +24,11 @@ def get_player(id):
         data = json.load(f)
     if id > 619:
         abort(404)
+    
+    name = data[id]['Player']
+    player_point_progression(name)
+    compare_player_position(name)
+    
     return jsonify(data[id])
 
 # runs application server
