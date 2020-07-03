@@ -51,9 +51,6 @@ def compare_player_position(name):
     for i,j in players_2019.iterrows():
         if(j['Pos'] == position):
             att_tgt = j['Tgt'] + j['PassingAtt'] + j['RushingAtt']
-            #x.append(att_tgt)
-            #y.append(j['FantasyPoints'])
-            plt.scatter(att_tgt, j['FantasyPoints'], color = 'blue')
             if(j['Player'] == name):
                 plt.scatter(att_tgt, j['FantasyPoints'], color = 'yellow')
             else:

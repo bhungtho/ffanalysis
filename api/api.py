@@ -25,11 +25,23 @@ def get_player(id):
     if id > 619:
         abort(404)
     
-    name = data[id]['Player']
-    player_point_progression(name)
-    compare_player_position(name)
+    # name = data[id]['Player']
+    # player_point_progression(name)
+    # compare_player_position(name)
     
     return jsonify(data[id])
+
+@app.route('/api/v1.0/graphs/update', methods=['PUT'])
+def update_graphs():
+    player_id = int(request.json['id'])
+    with open('2019.json') as f:
+        data = json.load(f)
+    #if player_id > 619:
+    #    abort(404)
+    
+    name = data[player_id]['Player']
+    player_point_progression(name)
+    compare_player_position(name)
 
 # runs application server
 app.run()

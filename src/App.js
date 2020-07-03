@@ -47,7 +47,11 @@ class App extends React.Component {
     });
   }
 
-  handleClick() {
+  update_graphs() {
+    axios.put('http://localhost:5000/api/v1.0/graphs/update', {id: this.state.selected.value});
+  }
+
+  get_player_data() {
     axios
       .get('http://localhost:5000/api/v1.0/data/' + this.state.selected.value).then((response) => {
         // clerical info
@@ -103,8 +107,14 @@ class App extends React.Component {
             re_td: n_re_td,
           }
         });
+        console.log('here');
       })
       .catch(error => console.log(error));
+  }
+
+  handleClick() {
+    this.update_graphs();
+    this.get_player_data();
   }
 
   render() {
@@ -131,12 +141,12 @@ class App extends React.Component {
           </div>
         </div>
         <div className = "row mb-2">
-          <Player 
+          <Images 
             state = {this.state}
           />
         </div>
         <div className = "row mb-2">
-          <Images 
+          <Player 
             state = {this.state}
           />
         </div>
