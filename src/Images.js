@@ -1,5 +1,4 @@
 import React from 'react';
-import {useImage} from 'react-image';
 import Graph_One from './media/compplayer.png';
 import Graph_Two from './media/playerptprog.png';
 import Graph_Three from './media/playerptprog.png';

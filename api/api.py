@@ -36,12 +36,14 @@ def update_graphs():
     player_id = int(request.json['id'])
     with open('2019.json') as f:
         data = json.load(f)
-    #if player_id > 619:
-    #    abort(404)
+    
+    f.close()
     
     name = data[player_id]['Player']
     player_point_progression(name)
     compare_player_position(name)
+
+    return ""
 
 # runs application server
 app.run()

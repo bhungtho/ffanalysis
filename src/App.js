@@ -47,6 +47,52 @@ class App extends React.Component {
     });
   }
 
+  componentDidMount() {
+    const name = localStorage.getItem('name');
+    const pos = localStorage.getItem('pos');
+    const age = localStorage.getItem('age');
+    const team = localStorage.getItem('team');
+    const fp = localStorage.getItem('fp');
+    const g = localStorage.getItem('g');
+    const gs = localStorage.getItem('gs');
+    const p_yd = localStorage.getItem('p_yd');
+    const p_td = localStorage.getItem('p_td');
+    const p_att = localStorage.getItem('p_att');
+    const ru_yd = localStorage.getItem('ru_yd');
+    const ru_td = localStorage.getItem('ru_td');
+    const ru_att = localStorage.getItem('ru_att');
+    const rec = localStorage.getItem('rec');
+    const tgt = localStorage.getItem('tgt');
+    const re_yd = localStorage.getItem('re_yd');
+    const re_td = localStorage.getItem('re_td');
+
+    this.setState({
+      player: {
+        name: name,
+        pos: pos,
+        age: age,
+        team: team,
+
+        fp: fp,
+        g: g,
+        gs: gs,
+
+        p_yd: p_yd,
+        p_td: p_td,
+        p_att: p_att,
+
+        ru_yd: ru_yd,
+        ru_td: ru_td,
+        ru_att: ru_att,
+
+        rec: rec,
+        tgt: tgt,
+        re_yd: re_yd,
+        re_td: re_td,
+      }
+    });
+  }
+
   update_graphs() {
     axios.put('http://localhost:5000/api/v1.0/graphs/update', {id: this.state.selected.value});
   }
@@ -82,7 +128,6 @@ class App extends React.Component {
         const n_re_td = response.data.ReceivingTD;
 
         this.setState({
-          //button_pressed: true,
           player: {
             name: n_name,
             pos: n_pos,
@@ -107,7 +152,24 @@ class App extends React.Component {
             re_td: n_re_td,
           }
         });
-        console.log('here');
+
+        localStorage.setItem('name', this.state.player.name);
+        localStorage.setItem('pos', this.state.player.pos);
+        localStorage.setItem('age', this.state.player.age);
+        localStorage.setItem('team', this.state.player.team);
+        localStorage.setItem('fp', this.state.player.fp);
+        localStorage.setItem('g', this.state.player.g);
+        localStorage.setItem('gs', this.state.player.gs);
+        localStorage.setItem('p_yd', this.state.player.p_yd);
+        localStorage.setItem('p_td', this.state.player.p_td);
+        localStorage.setItem('p_att', this.state.player.p_att);
+        localStorage.setItem('ru_yd', this.state.player.ru_yd);
+        localStorage.setItem('ru_td', this.state.player.ru_td);
+        localStorage.setItem('ru_att', this.state.player.ru_att);
+        localStorage.setItem('rec', this.state.player.rec);
+        localStorage.setItem('tgt', this.state.player.tgt);
+        localStorage.setItem('re_yd', this.state.player.re_yd);
+        localStorage.setItem('re_td', this.state.player.re_td);
       })
       .catch(error => console.log(error));
   }
@@ -139,11 +201,11 @@ class App extends React.Component {
               onClick = {() => this.handleClick()}
             />
           </div>
-        </div>
-        <div className = "row mb-2">
-          <Images 
-            state = {this.state}
-          />
+          <div className = "row mb-2">
+            <Images 
+              state = {this.state}
+            />
+          </div>
         </div>
         <div className = "row mb-2">
           <Player 
@@ -156,3 +218,11 @@ class App extends React.Component {
 }
 
 export default App;
+
+/* 
+  <div className = "row mb-2">
+          <Images 
+            state = {this.state}
+          />
+        </div>
+*/

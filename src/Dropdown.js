@@ -28,12 +28,11 @@ class Dropdown extends React.Component {
 
     this.load_json();
     return (
-      <Select 
-        value = {selected}
-        onChange = {this.handleChange}
-        options = {data} 
-      />
-
+        <Select 
+          value = {selected}
+          onChange = {this.handleChange}
+          options = {data} 
+        />
     );
   }
 }
