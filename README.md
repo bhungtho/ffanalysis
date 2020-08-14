@@ -1,3 +1,5 @@
+To run this project, navigate to the api directory, and run 'python api.py' in console. This starts the REST API server. Then, to run the web page, run 'npm start' or 'npm run build' in console.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
