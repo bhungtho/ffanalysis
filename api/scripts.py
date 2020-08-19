@@ -52,10 +52,44 @@ def compare_player_position(name):
         if(j['Pos'] == position):
             att_tgt = j['Tgt'] + j['PassingAtt'] + j['RushingAtt']
             if(j['Player'] == name):
-                plt.scatter(att_tgt, j['FantasyPoints'], color = 'yellow')
+                plt.scatter(att_tgt, j['FantasyPoints'], color = 'red')
             else:
                 plt.scatter(att_tgt, j['FantasyPoints'], color = 'blue')
+
+    plt.title(name + ' versus other ' + position + 's')
+    plt.ylabel('Fantasy Points')
+    plt.xlabel('Targets & Attempts')
 
     plt.savefig('./../src/media/compplayer.png')
 
     plt.close()
+
+def compare_point_sources(name):
+    players_2019 = pd.read_json('2019.json')
+
+    rushing_yds = (players_2019.loc[players_2019['Player'] == name])['RushingYds'].values[0]
+    rushing_tds = (players_2019.loc[players_2019['Player'] == name])['RushingTD'].values[0]
+    rushing_pts = max(rushing_yds * .1 + rushing_tds * 6, 0)
+
+    receiving_yds = (players_2019.loc[players_2019['Player'] == name])['ReceivingYds'].values[0]
+    receiving_tds = (players_2019.loc[players_2019['Player'] == name])['ReceivingTD'].values[0]
+    receiving_pts = max(receiving_yds * .1 + receiving_tds * 6, 0)
+
+    passing_yds = (players_2019.loc[players_2019['Player'] == name])['PassingYds'].values[0]
+    passing_tds = (players_2019.loc[players_2019['Player'] == name])['PassingTD'].values[0]
+    passing_pts = max(passing_yds * .025 + passing_tds * 4, 0)
+
+    # total_pts = rushing_pts + receiving_pts + passing_pts
+
+    labels = 'Rushing', 'Receiving', 'Passing'
+    points = [rushing_pts, receiving_pts, passing_pts]
+
+    plt.pie(points, labels = labels, autopct='%1.1f%%')
+
+    plt.title('Point Sources for ' + name)
+
+    plt.savefig('./../src/media/pointsources.png')
+
+    plt.close()
+
+compare_point_sources('Todd Gurley')

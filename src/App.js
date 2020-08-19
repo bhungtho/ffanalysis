@@ -2,7 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Button from './Button.js';
+import Select_Button from './Select_Button.js';
+import Clear_Button from './Clear_Button.js'
 import Dropdown from './Dropdown.js'
 import Player from './Player.js';
 import Images from './Images.js';
@@ -12,9 +13,6 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      image_one: null,
-      image_two: null,
-      image_three: null,
       button_pressed: false,
       selected: null,
       player: {
@@ -67,6 +65,7 @@ class App extends React.Component {
     const re_td = localStorage.getItem('re_td');
 
     this.setState({
+      button_pressed: localStorage.getItem('button_pressed'),
       player: {
         name: name,
         pos: pos,
@@ -153,6 +152,8 @@ class App extends React.Component {
           }
         });
 
+        localStorage.setItem('button_pressed', this.state.button_pressed);
+
         localStorage.setItem('name', this.state.player.name);
         localStorage.setItem('pos', this.state.player.pos);
         localStorage.setItem('age', this.state.player.age);
@@ -174,9 +175,14 @@ class App extends React.Component {
       .catch(error => console.log(error));
   }
 
-  handleClick() {
+  handleSelect() {
+    this.setState({button_pressed: true});
     this.update_graphs();
     this.get_player_data();
+  }
+
+  handleClear() {
+    this.setState({button_pressed: false});
   }
 
   render() {
@@ -197,20 +203,29 @@ class App extends React.Component {
             />
           </div>
           <div className = "col">
-            <Button 
-              onClick = {() => this.handleClick()}
+            <Select_Button 
+              onClick = {() => this.handleSelect()}
             />
           </div>
-          <div className = "row mb-2">
-            <Images 
-              state = {this.state}
+          <div className = "col">
+            <Clear_Button 
+              onClick = {() => this.handleClear()}
             />
           </div>
         </div>
         <div className = "row mb-2">
-          <Player 
-            state = {this.state}
-          />
+          {this.state.button_pressed &&
+            <Images 
+              state = {this.state}
+            />
+          }
+        </div>
+        <div className = "row mb-2">
+          {this.state.button_pressed &&
+            <Player 
+              state = {this.state}
+            />
+          }
         </div>
       </div>
     );
@@ -218,11 +233,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-/* 
-  <div className = "row mb-2">
-          <Images 
-            state = {this.state}
-          />
-        </div>
-*/

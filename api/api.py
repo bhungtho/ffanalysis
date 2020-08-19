@@ -42,6 +42,7 @@ def update_graphs():
     name = data[player_id]['Player']
     player_point_progression(name)
     compare_player_position(name)
+    compare_point_sources(name)
 
     return ""
 

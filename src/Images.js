@@ -1,7 +1,7 @@
 import React from 'react';
 import Graph_One from './media/compplayer.png';
 import Graph_Two from './media/playerptprog.png';
-import Graph_Three from './media/playerptprog.png';
+import Graph_Three from './media/pointsources.png';
 
 class Images extends React.Component {
     render() {
@@ -10,13 +10,13 @@ class Images extends React.Component {
                 <div className = 'container'>
                     <div className = 'row'>
                             <div className = 'col-md-4'>
-                                <img class = 'img-fluid' src = {Graph_One} alt = 'graph one'></img>
+                                <img className = 'img-fluid' src = {Graph_One} alt = 'graph one'></img>
                             </div>
                             <div className = 'col-md-4'>
-                                <img class = 'img-fluid' src = {Graph_Two} alt = 'graph two'></img>
+                                <img className = 'img-fluid' src = {Graph_Two} alt = 'graph two'></img>
                             </div>
                             <div className = 'col-md-4'>
-                                <img class = 'img-fluid' src = {Graph_Three} alt = 'graph three'></img>
+                                <img className = 'img-fluid' src = {Graph_Three} alt = 'graph three'></img>
                             </div>
                     </div>
                 </div>
