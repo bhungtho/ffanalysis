@@ -7,15 +7,15 @@ class Images extends React.Component {
     render() {
         return (
             <div>
-                <div className = 'container'>
+                <div className = 'container-fluid'>
                     <div className = 'row'>
-                            <div className = 'col-md-4'>
+                            <div className = 'col'>
                                 <img className = 'img-fluid' src = {Graph_One} alt = 'graph one'></img>
                             </div>
-                            <div className = 'col-md-4'>
+                            <div className = 'col'>
                                 <img className = 'img-fluid' src = {Graph_Two} alt = 'graph two'></img>
                             </div>
-                            <div className = 'col-md-4'>
+                            <div className = 'col'>
                                 <img className = 'img-fluid' src = {Graph_Three} alt = 'graph three'></img>
                             </div>
                     </div>

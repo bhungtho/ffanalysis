@@ -187,45 +187,49 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className = "container">
-        <div className = "row">
-          <div className = "col"></div>
-          <div className = "col">
-            <p>FFAnalysis</p>
-          </div>
-          <div className = "col"></div>
+      <div>
+        <div className = "page-header">
+          <h1 class = "display-4">
+              FFAnalysis
+          </h1>
+          <p class = "lead">
+            This is a tool meant for the analysis of NFL players for fantasy football purposes. Simply select a player and press 'Select'!
+          </p>
         </div>
-        <div className = "row mb-2">
-          <div className = "col"></div>
-          <div className = "col">
-            <Dropdown 
-              action = {this.handler}
-            />
+        <hr/>
+        <div className = "container-fluid">
+          <div className = "row mb-2">
+            <div className = "col">
+              <Dropdown 
+                action = {this.handler}
+              />
+            </div>
+            <div className = "col">
+              <div class = "btn-group" role = "group">
+                <Select_Button 
+                  onClick = {() => this.handleSelect()}
+                />
+                <Clear_Button 
+                  onClick = {() => this.handleClear()}
+                />
+              </div>
+            </div>
           </div>
-          <div className = "col">
-            <Select_Button 
-              onClick = {() => this.handleSelect()}
-            />
+          <hr/>
+          <div className = "row mb-2">
+            {this.state.button_pressed &&
+              <Images 
+                state = {this.state}
+              />
+            }
           </div>
-          <div className = "col">
-            <Clear_Button 
-              onClick = {() => this.handleClear()}
-            />
+          <div className = "row mb-2">
+            {this.state.button_pressed &&
+              <Player 
+                state = {this.state}
+              />
+            }
           </div>
-        </div>
-        <div className = "row mb-2">
-          {this.state.button_pressed &&
-            <Images 
-              state = {this.state}
-            />
-          }
-        </div>
-        <div className = "row mb-2">
-          {this.state.button_pressed &&
-            <Player 
-              state = {this.state}
-            />
-          }
         </div>
       </div>
     );
