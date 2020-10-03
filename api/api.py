@@ -29,6 +29,8 @@ def get_player(id):
     # player_point_progression(name)
     # compare_player_position(name)
     
+    #print(data[id])
+
     return jsonify(data[id])
 
 @app.route('/api/v1.0/graphs/update', methods=['PUT'])
@@ -45,6 +47,38 @@ def update_graphs():
     compare_point_sources(name)
 
     return ""
+
+@app.route('/api/v1.0/headlines/<int:id>', methods=['GET'])
+def get_headlines_api(id):
+    with open('2019.json') as f:
+        data = json.load(f)
+    if id > 619:
+        abort(404)
+
+    name = data[id]['Player']
+
+    headlines = get_headlines(name)
+
+    #print(headlines)
+
+    output = jsonify(
+        h_one = headlines[0][0],
+        l_one = headlines[0][1],
+        h_two = headlines[1][0],
+        l_two = headlines[1][1],
+        h_three = headlines[2][0],
+        l_three = headlines[2][1],
+        h_four = headlines[3][0],
+        l_four = headlines[3][1],
+        h_five = headlines[4][0],
+        l_five = headlines[4][1],
+    )
+
+    #print(output)
+
+    return output
+
+
 
 # runs application server
 app.run()

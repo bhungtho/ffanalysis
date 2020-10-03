@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 import pandas as pd
 import json
+from GoogleNews import GoogleNews
 
 def player_point_progression(name):
     # get data into dataframes
@@ -92,4 +93,17 @@ def compare_point_sources(name):
 
     plt.close()
 
-compare_point_sources('Todd Gurley')
+def get_headlines(name):
+    google_news = GoogleNews(lang = 'en', encode = 'utf-8')
+    google_news.search(name)
+
+    result = google_news.result()[:5]
+
+    output = []
+    for i in range(5):
+        #print(result[i])
+        output.append((result[i]['title'], result[i]['link']))
+
+    return output
+
+#get_headlines('Todd Gurley')
