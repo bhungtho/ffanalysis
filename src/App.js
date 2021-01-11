@@ -257,9 +257,9 @@ class App extends React.Component {
 
   handleSelect() {
     this.setState({button_pressed: true});
-    //this.update_graphs();
+    this.update_graphs();
     this.get_player_data();
-    this.get_headlines();
+    //this.get_headlines();
   }
 
   handleClear() {
@@ -297,13 +297,15 @@ class App extends React.Component {
             </div>
           </div>
           <hr/>
-          <div className = "row mb-2">
-            {this.state.button_pressed &&
-              <Headlines 
-                state = {this.state}
-              />
-            }
-          </div>          
+          {/*
+            <div className = "row mb-2">
+              {this.state.button_pressed &&
+                <Headlines 
+                  state = {this.state}
+                />
+              }
+            </div>
+          */}
           <div className = "row mb-2">
             {this.state.button_pressed &&
               <Images 
